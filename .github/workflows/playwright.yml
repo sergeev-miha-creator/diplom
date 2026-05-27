@@ -39,13 +39,12 @@ jobs:
           path: allure-results
           retention-days: 20
       
-        # Устанавливаем Allure CLI
+              # Устанавливаем Allure CLI через npm
       - name: Install Allure CLI
         if: always()
         run: |
-          sudo apt-add-repository ppa:qameta/allure -y
-          sudo apt-get update
-          sudo apt-get install allure -y
+          npm install -g allure-commandline
+          allure --version
       
       # Генерируем Allure отчет
       - name: Generate Allure Report
@@ -62,9 +61,6 @@ jobs:
           publish_dir: ./allure-report
           publish_branch: gh-pages
           force_orphan: true
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy Allure report for run #${{ github.run_number }}'
 
       - name: Install allurectl
         run: |
