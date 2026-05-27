@@ -1,0 +1,30 @@
+{
+  "name": "diplom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "allureGenerate": "allure generate --clean",
+    "allureOpen": "allure open",
+    "api": "export NODE_ENV=dev && export ENVIRONMENT=staging && npx playwright test --grep @API",
+    "api1": "export ENVIRONMENT=staging && npx playwright test --grep @API",
+    "debug": "npx playwright test --ui",
+    "test": "npx playwright test",
+    "reportAwesome": "npx allure awesome ./allure-results --single-file",
+    "reportClassic": "npx allure classic ./allure-results --single-file",
+    "report": "allure generate ./allure-results -o ./allure-report : allure open ./allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@playwright/test": "^1.60.0",
+    "@types/allure-js-commons": "^0.0.4",
+    "@types/node": "^25.9.0",
+    "allure-playwright": "^3.9.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^17.4.2",
+    "rimraf": "^6.1.3"
+  }
+}
