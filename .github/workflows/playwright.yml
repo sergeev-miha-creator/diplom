@@ -1,4 +1,10 @@
 name: playwright tests
+
+permissions:
+  contents: write
+  pages: write
+  actions: read
+
 # Когда запускаем тесты
 on:
   push:
@@ -61,6 +67,8 @@ jobs:
           publish_dir: ./allure-report
           publish_branch: gh-pages
           force_orphan: true
+          user_name: 'sergeev-miha-creator'
+          user_email: 'sergeev-miha-creator@users.noreply.github.com'
 
       - name: Install allurectl
         run: |
