@@ -70,9 +70,13 @@ jobs:
           user_name: 'sergeev-miha-creator'
           user_email: 'sergeev-miha-creator@users.noreply.github.com'
 
+       # Установка allurectl
       - name: Install allurectl
         run: |
-          npm install -g allurectl
+          sudo rm -rf allurectl
+          sudo curl -L -o /usr/local/bin/allurectl https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64
+          sudo chmod +x /usr/local/bin/allurectl
+          allurectl --version
 
       - name: Upload results to Allure TestOps
         if: always()
