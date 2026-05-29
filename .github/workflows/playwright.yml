@@ -49,7 +49,10 @@ jobs:
       - name: Install Allure CLI
         run: |
           sudo apt-get update
-          sudo apt-get install -y allure
+          sudo apt-get install -y wget openjdk-11-jre-headless
+          wget -O allure.deb https://github.com/allure-framework/allure2/releases/download/2.29.0/allure_2.29.0-1_all.deb
+          sudo dpkg -i allure.deb
+          allure --version
           
       # Генерация HTML отчета из результатов
       - name: Generate Allure Report
