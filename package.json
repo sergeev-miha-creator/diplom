@@ -6,8 +6,10 @@
   "scripts": {
     "allureGenerate": "allure generate --clean",
     "allureOpen": "allure open",
-    "api": "export NODE_ENV=dev && export ENVIRONMENT=staging && npx playwright test --grep @API",
-    "api1": "export ENVIRONMENT=staging && npx playwright test --grep @API",
+    "APItest": "npx playwright test --grep '@API'",
+    "UItest": "npx playwright test --grep '@UI'",
+    "api2": "export NODE_ENV=dev : export ENVIRONMENT=staging : npx playwright test --grep @API",
+    "api13": "export ENVIRONMENT=staging && npx playwright test --grep @API",
     "debug": "npx playwright test --ui",
     "test": "npx playwright test",
     "reportAwesome": "npx allure awesome ./allure-results --single-file",
