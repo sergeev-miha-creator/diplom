@@ -121,7 +121,7 @@ jobs:
           ❌ Провалено: *$FAILED*%0A\
           ⏭️ Пропущено: *$SKIPPED*%0A\
           ━━━━━━━━━━━━━━━━━%0A\
-          🔗 [Allure отчет](https://sergeev-miha-creator.io/diplom/)%0A\
+          🔗 [Allure отчет](https://sergeev-miha-creator.github.io/diplom/)%0A\
           🧪 [Allure TestOps](https://allure.autotests.cloud/project/5225)%0A\
           📦 [Артефакты](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})%0A\
           ━━━━━━━━━━━━━━━━━%0A\
