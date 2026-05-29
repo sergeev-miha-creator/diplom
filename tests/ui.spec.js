@@ -114,4 +114,5 @@ test.describe('Регистрация', () => {
 
         await expect(app.article.favoriteTab).toBeVisible();
     });
+    
 });
