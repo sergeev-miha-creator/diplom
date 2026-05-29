@@ -1,10 +1,17 @@
 name: playwright tests
+
+permissions:
+  contents: write
+  pages: write
+  actions: read
 # Когда запускаем тесты
 on:
   push:
     branches: [ master ] 
   pull_request:
     branches: [ master ]
+
+    
   # ручной запуск
   workflow_dispatch:
 # Описываем джобы
