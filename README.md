@@ -81,4 +81,4 @@ Pull Request в master
 ### 📱 Telegram
 После каждого запуска тестов приходит уведомление с результатами:
 
-<img src="https://github.com/sergeev-miha-creator/diplom/blob/master/media/screeanshots/%D1%82%D0%B3-%D0%B1%D0%BE%D1%82.png" width="400" />
+<img src="https://github.com/sergeev-miha-creator/diplom/img/tg notification.png" width="400" />
