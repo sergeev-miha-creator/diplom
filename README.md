@@ -1,53 +1,84 @@
-# Дипломный проект по итогам обучения на курсе QA.GURU | JS + Playwright QA.GURU | JS + Playwright | Автоматизация тестирования 4 поток
+# Дипломная работа QA.GURU | JS + Playwright
 
 ## Содержание
-- [Описание](#Описание)
-- [Технологический стек](#Технологический-стек)
-- [Запуск тестов через GitHub Actions](#Запуск-тестов-через-GitHub-Actions)
-- [Локальный запуск тестов и генерация отчётов](#Локальный_запуск-тестов-и-генерация-отчётов)
-- [Пример сформированного allure отчёта](#-Пример-сформированного-allure-отчёта)
-- [Отчёт в ТестОпс](#-Отчёт-в-ТестОпс)
-- [Уведомления в Telegram](#-Уведомления-в-Telegram)
-
+- [Описание](#описание)
+- [Технологический стек](#технологический-стек)
+- [Запуск тестов](#запуск-тестов)
+- [Отчетность](#отчетность)
+- [Уведомления](#уведомления)
 
 ## Описание
-Данный дипломный проект разработан в рамках курса по автоматизации тестирования. Репозиторий содержит набор UI и API тестов, написанных на языке JavaScript с использованием фреймворка Playwright. В качестве системы непрерывной интеграции и доставки применён GitHub Actions, выполняющий автоматический запуск тестов, формирование отчетов Allure, интеграцию с ТестОпс и отправку уведомлений в Telegram.
+Дипломный проект, выполненный в рамках курса по автоматизации тестирования на JavaScript + Playwright. Проект включает UI и API тесты с интеграцией в CI/CD pipeline.
 
-Объектами тестирования служат:
-
-**selectel.ru** — веб-сайт, для которого реализованы практические задания для автоматизации интерфейсных тестов.
-
-**apichallenges.herokuapp.com** — учебный сервис, предназначенный для освоения и отработки навыков тестирования API.
+**Объекты тестирования:**
+- **[realworld.qa.guru](https://realworld.qa.guru/#/)** - веб-приложение для практики UI тестирования
+- **[apichallenges.eviltester.com](https://apichallenges.eviltester.com/)** - RESTful API для отработки навыков API тестирования
 
 ## Технологический стек
-<img src="img/javascript.png" title="JavaScript" width="50" height="50"/><img src="img/playwright.jpg" title="Playwrite" width="50" height="50"/><img src="img/git.svg" alt="Git" width="50" height="50"/><img src="img/github.png" title="GitHub" alt="GitHub" width="50" height="50"/><img src="img/allure framework.png" alt="Allure Framework" width="50" height="50"/><img src="img/testops.svg" alt="ТестОпс" width="45" height="45" /><img src="img/fakerjs.svg" alt="Fakerjs" width="50" height="50"/><img src="img/telegram.png" title="Telegram" width="50" height="50"/>
+Данный проект был написан на языке программирования JavaScript с использованией фреймворка Playwright. Для хранения исходного кода и запуска рабочих процессов используется облачная платформа GitHub с GitHub Actions.
 
-## Запуск тестов через GitHub Actions
-Для запуска тестов необходимо авторизоваться на GitHub и перейти в репозиторий проекта. Тесты запускаются автоматически при push в ветки main, а также при создании Pull Request. Для ручного запуска необходимо перейти во вкладку Actions, выбрать workflow E2E и нажать Run workflow.
+Генерация отчетов о пройденных тестах формируется в Allure с отправкой отчетности в тест-менеджмент TestOps для анализа результатов и управления дефектами.
 
-После завершения выполнения тестов будет автоматически сформирован Allure-отчет, содержащий детальную информацию о результатах тестирования. Отчет сохраняется как артефакт сборки и доступен для скачивания в течение 30 дней.
+Уведомлений о статусе выполнения тестов отправляются в чат Telegram посредством бота.
 
-Результаты тестирования автоматически загружаются в ТестОпс для дальнейшего анализа и отслеживания метрик качества.
+![JavaScript](https://img.shields.io/badge/-JavaScript-%23F7DF1E?logo=javascript&logoColor=black)
+![Playwright](https://img.shields.io/badge/-Playwright-%2345ba4b?logo=playwright&logoColor=white)
+![Faker](https://img.shields.io/badge/-Faker-%2300AFF0?logo=faker&logoColor=white)
+![GitHub](https://img.shields.io/badge/-GitHub-%23181717?logo=github)
+![GitHub Actions](https://img.shields.io/badge/-GitHub_Actions-%232088FF?logo=github-actions&logoColor=white)
+![Allure](https://img.shields.io/badge/-Allure-%23FF6A00?logo=allure&logoColor=white)
+![Allure TestOps](https://img.shields.io/badge/-Allure_TestOps-%2316A085?logo=allure&logoColor=white)
+![Telegram](https://img.shields.io/badge/-Telegram-%2326A5E4?logo=telegram&logoColor=white)
 
-Уведомление о статусе выполнения тестов со ссылкой на Allure-отчет автоматически отправляется в Telegram, что позволяет оперативно отслеживать результаты прогона и быстро реагировать на возникшие проблемы.
+## Запуск тестов
 
-## Локальный запуск тестов и генерация отчётов
+### Локальный запуск
+```bash
+# Клонирование репозитория
+git clone https://github.com/sergeev-miha-creator/diplom.git
+cd DIPLOM-GURU-QA
 
-Команда для локального запуска тестов
+# Установка зависимостей
+npm install
+
+# Установка браузеров
+npx playwright install --with-deps
+
+# Запуск тестов
+npm t
+
+# Генерация отчета
+npx allure generate allure-results -o allure-report --clean
+npx allure open allure-report
 ```
-npm run test
-```
-Команда для локального формирования отчёта
-```
-npm run allureFile
-```
+### Запуск в CI/CD
+Push в master ветки
 
-## Пример сформированного Allure отчёта
-![img.png](img/allure_testops_report_example.png)
+Pull Request в master
 
-## Отчёт в ТестОпс
-[Ссылка на проект](https://allure.autotests.cloud/project/4995/launches)
-![img.png](img/allure_report_example.png)
+Ручной запуск через GitHub Actions
 
-## Уведомления в Telegram
-![img.png](img/tg_report_example.png)
+## Отчетность
+### 📊 Allure Report
+[Ссылка на отчёт](https://sergeev-miha-creator.github.io/diplom/)
+<img width="1731" height="946" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/master/media/screeanshots/image.png" />
+
+**Включает:**
+
+Детальную статистику тестов
+
+Историю запусков 
+
+Скриншоты и видео падающих тестов
+
+Логи выполнения
+
+### 🔧 Allure TestOps
+[Ссылка на проект](https://allure.autotests.cloud/project/5225)
+<img width="1280" height="526" alt="image" src="" />
+
+## Уведомления
+### 📱 Telegram
+После каждого запуска тестов приходит уведомление с результатами:
+
+<img src="https://github.com/sergeev-miha-creator/diplom/blob/master/media/screeanshots/%D1%82%D0%B3-%D0%B1%D0%BE%D1%82.png" width="400" />

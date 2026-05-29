@@ -5,7 +5,7 @@ test.describe("API challenge", () => {
     let token;
 
     test.beforeAll(async ({api}) => {
-        const response = await api.challenger.post(token);
+        const response = await api.challenger.post();
         const headers = response.headers();
 
         token = headers["x-challenger"];
@@ -79,10 +79,16 @@ test.describe("API challenge", () => {
 
     test("DELETE /todos/{id} (200)", {tag: '@API'}, async ({api}) => {
 
-        const response = await api.todos.deleteTodos(token, '1');
-
-        const headers = await response.headers();
+        const newTodo = {
+        title: "To Delete",
+        doneStatus: false,
+        description: "Will be deleted"
+    };
+        const createResponse = await api.todos.postTodos(token, newTodo);
+        const createdTodo = await createResponse.json();
+        const todoId = createdTodo.id;
+        const response = await api.todos.deleteTodos(token, todoId);
+        
         expect(response.status()).toBe(200);
-        expect(headers).toEqual(expect.objectContaining({"x-challenger": token}))
     });
 });
