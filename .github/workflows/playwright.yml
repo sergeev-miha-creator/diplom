@@ -45,21 +45,21 @@ jobs:
           path: allure-results
           retention-days: 20
       
-      # Установка Allure CLI
-      - name: Install Java and Allure CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jre-headless wget
-          wget -O allure.deb https://github.com/allure-framework/allure2/releases/download/2.29.0/allure_2.29.0-1_all.deb
-          sudo dpkg -i allure.deb
-          sudo apt-get install -f
-          allure --version
-          
-      # Генерация HTML отчета из результатов
-      - name: Generate Allure Report
+      - name: Save Allure report
+        uses: actions/upload-artifact@v4
         if: always()
-        run: |
-          allure generate allure-results --clean -o allure-report
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+
+      - name: Install and configure allurectl
+        uses: allure-framework/setup-allurectl@v1.0.2
+        if: always()
+        with:
+          allure-endpoint: https://allure.autotests.cloud
+          allure-token: ${{ secrets.ALLURE_API_TOKEN }}
+          allure-project-id: 4995
           
       # Сохраняем отчет как артефакт (для отладки)
       - uses: actions/upload-artifact@v4
@@ -68,29 +68,6 @@ jobs:
           name: allure-report
           path: allure-report
           retention-days: 20
-          
-      # Подготавливаем историю для графиков (опционально)
-      - name: Checkout gh-pages for history
-        if: always()
-        continue-on-error: true
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages-history
-          
-      # Копируем историю из прошлых отчетов (для трендов)
-      - name: Copy history from previous report
-        if: always()
-        run: |
-          if [ -d "gh-pages-history/history" ]; then
-            cp -r gh-pages-history/history allure-report/history/ || true
-          fi
-          
-      # Генерируем финальный отчет с историей
-      - name: Generate Final Report with History
-        if: always()
-        run: |
-          allure generate allure-results --clean -o allure-report
           
       # Деплоим отчет на GitHub Pages
       - name: Deploy to GitHub Pages
