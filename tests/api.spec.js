@@ -12,7 +12,7 @@ test.describe("API challenge", () => {
 
     });
 
-    test("Получить список todo get /todos(200)", {tag: '@API'}, async ({api}) => {
+    test("GET /todos (200)", {tag: '@API'}, async ({api}) => {
 
         const response = await api.todos.getTodos(token)
         const body = await response.json();
@@ -24,7 +24,7 @@ test.describe("API challenge", () => {
 
    
 
-    test("Создать todo POST /todos (201)", {tag: '@API'}, async ({api}) => {
+    test("POST /todos (201)", {tag: '@API'}, async ({api}) => {
 
         const todo = {
             title: "text",
@@ -44,7 +44,7 @@ test.describe("API challenge", () => {
     });
 
 
-    test("Создать todo POST /todos (400) title too long", {tag: '@API'}, async ({api}) => {
+    test("POST /todos (400) title too long", {tag: '@API'}, async ({api}) => {
 
         const todo = {
             title: "texttexttexttexttexttexttexttexttexttexttexttexttexttext",
@@ -61,7 +61,7 @@ test.describe("API challenge", () => {
     });
 
 
-    test("Отредактировать задание PUT /todos/{id} ", {tag: '@API'}, async ({api}) => {
+    test("PUT /todos/{id} ", {tag: '@API'}, async ({api}) => {
 
         const todo = {
             doneStatus: true,
@@ -77,7 +77,7 @@ test.describe("API challenge", () => {
     });
 
 
-    test("Удалить задание Delete /todos/{id} (200)", {tag: '@API'}, async ({api}) => {
+    test("DELETE /todos/{id} (200)", {tag: '@API'}, async ({api}) => {
 
         const response = await api.todos.deleteTodos(token, '1');
 

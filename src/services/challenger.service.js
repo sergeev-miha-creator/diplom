@@ -6,13 +6,9 @@ export class ChallengerService {
         this.baseURL = options.URL || 'https://apichallenges.herokuapp.com/';
     }
 
-    async post(token){
+    async post(){
         const apiRequest = await request.newContext();
-        const response1 = await apiRequest.post(`${this.baseURL}challenger`, {
-            headers: {
-                "x-challenger": token,
-            },
-        });
+        const response1 = await apiRequest.post(`${this.baseURL}challenger`);
         return response1;
     }
 }

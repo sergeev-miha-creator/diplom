@@ -1,4 +1,4 @@
-import { ChallengerService, ChallengesService, TodosService, TodoService } from './index';
+import { ChallengerService, TodosService } from './index';
 
 export class ApiClient {
     constructor (options) {
