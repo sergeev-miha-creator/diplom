@@ -10,7 +10,7 @@ test.describe('Регистрация', () => {
     });
 
 
-    test('Create article',  { tag: '@UI' }, async ({app}) => {
+    test.only('Create article',  { tag: '@UI' }, async ({app}) => {
 
         const user = new UserBuilder()
             .addName()
