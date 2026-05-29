@@ -5,13 +5,13 @@ permissions:
   contents: write
   pages: write
   actions: read
-  
+
 # Когда запускаем тесты
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     
   # ручной запуск
   workflow_dispatch:
