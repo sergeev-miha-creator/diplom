@@ -1,0 +1,163 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: ui.spec.js >> Регистрация >> Update article
+- Location: tests/ui.spec.js:37:9
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 60000ms exceeded.
+Call log:
+  - waiting for getByRole('link', { name: ' Edit Article' }).nth(1)
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - navigation [ref=e4]:
+      - generic:
+        - link "conduit" [ref=e5] [cursor=pointer]:
+          - /url: "#/"
+        - list [ref=e6]:
+          - listitem [ref=e7]:
+            - link " Source code" [ref=e8] [cursor=pointer]:
+              - /url: https://github.com/TonyMckes/conduit-realworld-example-app
+              - generic [ref=e9]: 
+              - text: Source code
+        - list [ref=e10]:
+          - listitem [ref=e11]:
+            - link " Home" [ref=e12] [cursor=pointer]:
+              - /url: "#/"
+              - generic [ref=e13]: 
+              - text: Home
+          - listitem [ref=e14]:
+            - link " New Article" [ref=e15] [cursor=pointer]:
+              - /url: "#/editor"
+              - generic [ref=e16]: 
+              - text: New Article
+          - listitem [ref=e17]:
+            - generic [ref=e18] [cursor=pointer]:
+              - img "Raina Crooks" [ref=e19]
+              - text: Raina Crooks
+            - text:   
+  - main [ref=e20]:
+    - group [ref=e26]:
+      - text: Title already exists..
+      - group [ref=e27]:
+        - textbox "Article Title" [ref=e28]: utilization
+      - group [ref=e29]:
+        - textbox "What's this article about?" [ref=e30]: programme
+      - group [ref=e31]:
+        - textbox "Write your article (in markdown)" [ref=e32]: Vesco depereo demonstro strues utroque. Apud occaecati cogito quos. Demulceo chirographum absconditus advenio.
+      - group [ref=e33]:
+        - textbox "Enter tags" [ref=e34]: convection
+      - button "Publish Article" [active] [ref=e35] [cursor=pointer]
+  - contentinfo [ref=e36]:
+    - generic [ref=e37]:
+      - link "conduit" [ref=e38] [cursor=pointer]:
+        - /url: "#/"
+      - generic [ref=e39]:
+        - text: An interactive learning project from
+        - link "Thinkster" [ref=e40] [cursor=pointer]:
+          - /url: https://thinkster.io
+        - text: . Code & design licensed under MIT.
+      - list [ref=e41]:
+        - listitem [ref=e42]:
+          - link " Source code" [ref=e43] [cursor=pointer]:
+            - /url: https://github.com/TonyMckes/conduit-realworld-example-app
+            - generic [ref=e44]: 
+            - text: Source code
+```
+
+# Test source
+
+```ts
+  1  | import { BasePage } from './base.page';
+  2  | 
+  3  | export class ArticlePage extends BasePage{
+  4  |     constructor(page) {
+  5  |         super(page);
+  6  |         this.newArticle = page.getByRole('link', { name: ' New Article' });
+  7  |         this.chooseTitle = page.getByRole('textbox', { name: 'Article Title' });
+  8  |         this.chooseDescription = page.getByRole('textbox', { name: 'What\'s this article about?' });
+  9  |         this.chooseBody = page.getByRole('textbox', { name: 'Write your article (in' });
+  10 |         this.chooseTags = page.getByRole('textbox', { name: 'Enter tags' });
+  11 |         this.articlePublish = page.getByText('Publish Article');
+  12 |         this.articleComment = page.getByRole('main');
+  13 |         this.articleTitle = page.getByRole('heading');
+  14 |         this.articleBody = page.getByRole('paragraph');
+  15 |         this.articleTags = page.locator('.tag-list');
+  16 |         //update
+  17 |         this.editArticle = page.getByRole('link', { name: ' Edit Article' });
+  18 |         this.articleUpdate = page.getByRole('button', { name: 'Update Article' });
+  19 |         //post comment
+  20 |         this.writeComment = page.getByRole('textbox', { name: 'Write a comment...' });
+  21 |         this.postComment = page.getByRole('button', { name: 'Post Comment' });
+  22 |         //favorite
+  23 |         this.userProfile = page.locator('.user-pic');
+  24 |         this.linkProfile = page.getByRole('link', { name: ' Profile' });
+  25 |         this.favoriteTab = page.getByRole('link', { name: 'Favorited Articles' });
+  26 |         this.myTab = page.getByRole('link', { name: 'My Articles' });
+  27 |     }
+  28 |     // бизнесовые действия со страницой
+  29 |     async createNewArticle(article) {
+  30 |         const {title, description, body, tags} = article
+  31 |         await this.newArticle.click();
+  32 |         await this.chooseTitle.click();
+  33 |         await this.chooseTitle.fill(title);
+  34 |         await this.chooseDescription.click();
+  35 |         await this.chooseDescription.fill(description);
+  36 |         await this.chooseBody.click();
+  37 |         await this.chooseBody.fill(body);
+  38 |         await this.chooseTags.click();
+  39 |         await this.chooseTags.fill(tags);
+  40 |         await this.articlePublish.click();
+  41 | 
+  42 |     }
+  43 | 
+  44 |     async updateArticle(article) {
+  45 |         const {title, body} = article
+> 46 |         await this.editArticle.nth(1).click();
+     |                                       ^ Error: locator.click: Test timeout of 60000ms exceeded.
+  47 |         await this.chooseTitle.click();
+  48 |         await this.chooseTitle.clear();
+  49 |         await this.chooseTitle.fill(title);
+  50 |         await this.chooseBody.click();
+  51 |         await this.chooseBody.clear();
+  52 |         await this.chooseBody.fill(body);
+  53 |         await this.articleUpdate.click();
+  54 |     }
+  55 | 
+  56 |     async newPostComment(comment) {
+  57 |         const {commentText} = comment
+  58 |         await this.writeComment.click();
+  59 |         await this.writeComment.fill(commentText);
+  60 |         await this.postComment.click();
+  61 |     }
+  62 | 
+  63 |     async goToMyTab() {
+  64 |         await this.userProfile.click();
+  65 |         await this.linkProfile.click();
+  66 |         await this.myTab.click();
+  67 |     }
+  68 | 
+  69 |     async goToFavoriteTab() {
+  70 |         await this.userProfile.click();
+  71 |         await this.linkProfile.click();
+  72 |         await this.favoriteTab.click();
+  73 |     }
+  74 | }
+```
