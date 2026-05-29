@@ -46,13 +46,15 @@ jobs:
           retention-days: 20
       
       # Установка Allure CLI
-      - name: Install Allure CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget openjdk-11-jre-headless
-          wget -O allure.deb https://github.com/allure-framework/allure2/releases/download/2.29.0/allure_2.29.0-1_all.deb
-          sudo dpkg -i allure.deb
-          allure --version
+      - uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
           
       # Генерация HTML отчета из результатов
       - name: Generate Allure Report
