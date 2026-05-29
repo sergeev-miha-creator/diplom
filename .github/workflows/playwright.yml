@@ -2,7 +2,7 @@ name: playwright tests
 # Когда запускаем тесты
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] 
   pull_request:
     branches: [ main ]
   # ручной запуск
