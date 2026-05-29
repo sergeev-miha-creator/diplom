@@ -45,31 +45,33 @@ jobs:
           path: allure-results
           retention-days: 20
       
-      - name: Save Allure report
-        uses: actions/upload-artifact@v4
+      # ========== ВАЖНО: ГЕНЕРАЦИЯ ОТЧЕТА ==========
+      - name: Install Java and Allure CLI
         if: always()
-        with:
-          name: allure-report
-          path: allure-report/
-          retention-days: 30
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jre-headless wget
+          wget -O allure.deb https://github.com/allure-framework/allure2/releases/download/2.29.0/allure_2.29.0-1_all.deb
+          sudo dpkg -i allure.deb
+          sudo apt-get install -f
+          allure --version
 
-      - name: Install and configure allurectl
-        uses: allure-framework/setup-allurectl@v1.0.2
+      - name: Generate Allure Report
         if: always()
-        with:
-          allure-endpoint: https://allure.autotests.cloud
-          allure-token: ${{ secrets.ALLURE_API_TOKEN }}
-          allure-project-id: 4995
-          
-      # Сохраняем отчет как артефакт (для отладки)
+        run: |
+          allure generate allure-results --clean -o allure-report
+          echo "Report generated successfully"
+          ls -la allure-report/
+      
+      # Сохраняем сгенерированный отчет
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: allure-report
+          name: allure-report-generated
           path: allure-report
           retention-days: 20
           
-      # Деплоим отчет на GitHub Pages
+      # ========== ДЕПЛОЙ НА GITHUB PAGES ==========
       - name: Deploy to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
@@ -82,14 +84,13 @@ jobs:
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Deploy Allure Report for run #${{ github.run_number }}'
           
-      # Установка allurectl для TestOps
+      # ========== ИНТЕГРАЦИЯ С ALLURE TESTOPS ==========
       - name: Install allurectl
         run: |
           curl -o allurectl -L "https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64"
           chmod +x allurectl
           sudo mv allurectl /usr/local/bin/
           
-      # Загрузка в TestOps
       - name: Upload results to Allure TestOps
         if: always()
         run: |
@@ -99,13 +100,17 @@ jobs:
             --token ${{ secrets.ALLURE_TOKEN }} \
             --launch-name "GitHub Run #${{ github.run_number }}"
           
-      # Парсим статистику из отчета
+      # ========== ПАРСИНГ СТАТИСТИКИ ==========
       - name: Parse Allure summary
         id: parse_summary
         if: always()
         run: |
+          # Ждем немного, чтобы файлы точно создались
+          sleep 5
+          
           SUMMARY_FILE="allure-report/widgets/summary.json"
           if [ -f "$SUMMARY_FILE" ]; then
+            echo "Found summary.json"
             PASSED=$(jq '.statistic.passed' $SUMMARY_FILE)
             FAILED=$(jq '.statistic.failed' $SUMMARY_FILE)
             SKIPPED=$(jq '.statistic.skipped' $SUMMARY_FILE)
@@ -114,14 +119,16 @@ jobs:
             echo "FAILED=$FAILED" >> $GITHUB_ENV
             echo "SKIPPED=$SKIPPED" >> $GITHUB_ENV
             echo "TOTAL=$TOTAL" >> $GITHUB_ENV
+            echo "Statistics: Total=$TOTAL, Passed=$PASSED, Failed=$FAILED, Skipped=$SKIPPED"
           else
+            echo "WARNING: summary.json not found at $SUMMARY_FILE"
             echo "PASSED=0" >> $GITHUB_ENV
             echo "FAILED=0" >> $GITHUB_ENV
             echo "SKIPPED=0" >> $GITHUB_ENV
             echo "TOTAL=0" >> $GITHUB_ENV
           fi
           
-      # Отправка уведомления в Telegram
+      # ========== УВЕДОМЛЕНИЕ В TELEGRAM ==========
       - name: Notify Telegram
         if: always()
         run: |
