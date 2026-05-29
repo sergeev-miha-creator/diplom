@@ -91,4 +91,5 @@ test.describe("API challenge", () => {
         
         expect(response.status()).toBe(200);
     });
+    
 });

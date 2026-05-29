@@ -1,4 +1,5 @@
 {
+  
   "name": "diplom",
   "version": "1.0.0",
   "description": "",
@@ -28,4 +29,5 @@
     "dotenv": "^17.4.2",
     "rimraf": "^6.1.3"
   }
+
 }

@@ -36,7 +36,7 @@
 ```bash
 # Клонирование репозитория
 git clone https://github.com/sergeev-miha-creator/diplom.git
-cd DIPLOM-GURU-QA
+cd diplom
 
 # Установка зависимостей
 npm install
@@ -61,6 +61,7 @@ Pull Request в master
 ## Отчетность
 ### 📊 Allure Report
 [Ссылка на отчёт](https://sergeev-miha-creator.github.io/diplom/)
+
 <img width="1500" height="900" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/55811588873b89c132b0c1f4f397b5a51183e2ad/img/allure%20report.png" />
 
 **Включает:**
@@ -75,6 +76,7 @@ Pull Request в master
 
 ### 🔧 Allure TestOps
 [Ссылка на проект](https://allure.autotests.cloud/project/5225)
+
 <img width="1500" height="900" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/87ceef348a0a7f82de35a05c77df6779b4eb05df/img/allure%20testops.png" />
 
 ## Уведомления

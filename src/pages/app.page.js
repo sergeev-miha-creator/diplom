@@ -7,4 +7,5 @@ export class App {
         this.main = new MainPage(page);
         this.register = new RegisterPage(page);
     }
+    
 }

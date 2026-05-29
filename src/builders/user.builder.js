@@ -19,4 +19,5 @@ export class UserBuilder {
     generate() {
         return { ...this };
     }
+    
 }

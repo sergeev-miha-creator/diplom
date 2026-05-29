@@ -5,7 +5,6 @@ permissions:
   contents: write
   pages: write
   actions: read
-
 # Когда запускаем тесты
 on:
   push:

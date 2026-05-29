@@ -11,4 +11,5 @@ export class ChallengerService {
         const response1 = await apiRequest.post(`${this.baseURL}challenger`);
         return response1;
     }
+    
 }

@@ -71,4 +71,5 @@ export class ArticlePage extends BasePage{
         await this.linkProfile.click();
         await this.favoriteTab.click();
     }
+    
 }

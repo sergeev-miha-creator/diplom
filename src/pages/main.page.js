@@ -13,4 +13,5 @@ export class MainPage extends BasePage {
     async gotoRegister() {
         await this.signupLink.click();
     }
+    
 }
