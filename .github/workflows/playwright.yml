@@ -2,9 +2,9 @@ name: playwright tests
 # Когда запускаем тесты
 on:
   push:
-    branches: [ main ] 
+    branches: [ master ] 
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
   # ручной запуск
   workflow_dispatch:
 # Описываем джобы
