@@ -61,7 +61,7 @@ Pull Request в master
 ## Отчетность
 ### 📊 Allure Report
 [Ссылка на отчёт](https://sergeev-miha-creator.github.io/diplom/)
-<img width="1731" height="946" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/master/media/screeanshots/image.png" />
+<img width="1500" height="800" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/master/media/screeanshots/image.png" />
 
 **Включает:**
 
@@ -75,10 +75,10 @@ Pull Request в master
 
 ### 🔧 Allure TestOps
 [Ссылка на проект](https://allure.autotests.cloud/project/5225)
-<img width="1280" height="526" alt="image" src="" />
+<img width="1500" height="800" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/87ceef348a0a7f82de35a05c77df6779b4eb05df/img/allure%20testops.png" />
 
 ## Уведомления
 ### 📱 Telegram
 После каждого запуска тестов приходит уведомление с результатами:
 
-<img src="https://github.com/sergeev-miha-creator/diplom/img/tg notification.png" width="400" />
+<img width="700" height="350" alt="image" src="https://github.com/sergeev-miha-creator/diplom/blob/87ceef348a0a7f82de35a05c77df6779b4eb05df/img/tg%20notification.png" />
