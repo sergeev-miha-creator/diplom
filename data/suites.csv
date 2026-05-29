@@ -1,2 +1,2 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Fri May 29 11:04:28 UTC 2026","Fri May 29 11:04:33 UTC 2026","4257","chromium","","Регистрация","","","Create article",""
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5033","Create article","chromium","2026-05-29","passed","2026-05-29","Регистрация","","",""
