@@ -1,29 +1,25 @@
-import { ChallengerService, TodosService } from './index';
+import { ChallengerService } from './challenger.service';
+import { TodosService } from './todos.service';
 
 export class ApiClient {
-    constructor (options) {
-        const defaultOptions = {
-            URL: "https://apichallenges.eviltester.com/",
-        }
-        const mergeOptions = {
-            ...defaultOptions,
-            ...options,
-        }
-        this.challenger = new ChallengerService(mergeOptions);
-        this.todos = new TodosService(mergeOptions);
-    };
+    constructor(request, baseURL) {
+        this.request = request;
+        this.baseURL = baseURL;
+        this.challenger = new ChallengerService(request, baseURL);
+        this.todos = new TodosService(request, baseURL);
+    }
 
-    static async loginAs(){
+    static async loginAs(request, baseURL) {
+
         const client = this.unauthorized();
-        const { headers } = await client.challenger.post();
-        const token = headers["x-challenger"]
+        const response = await client.challenger.post();
+        const headers = response.headers();
+        const token = headers["x-challenger"];
+        return new ApiClient({ token });
 
-
-        return new ApiClient({token});
     }
 
-    static unauthorized(){
-        return new ApiClient();
+    getToken() {
+        return this.token;
     }
-    
 }

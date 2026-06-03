@@ -9,6 +9,7 @@ export default defineConfig({
   
   use: {
     baseURL: 'https://realworld.qa.guru/',
+    apiURL: 'https://apichallenges.eviltester.com/',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

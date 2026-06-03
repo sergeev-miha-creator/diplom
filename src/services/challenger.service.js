@@ -1,15 +1,15 @@
-import {request} from "@playwright/test";
+import { test } from '@playwright/test';
 
 export class ChallengerService {
-    constructor (options){
-        this.options = options;
-        this.baseURL = options.URL || 'https://apichallenges.herokuapp.com/';
+    constructor(request, baseURL) {
+        this.request = request;
+        this.baseURL = baseURL;
     }
 
-    async post(){
-        const apiRequest = await request.newContext();
-        const response1 = await apiRequest.post(`${this.baseURL}challenger`);
-        return response1;
+    async post() {
+        return test.step("POST /challenger", async () => {
+            const response = await this.request.post(`${this.baseURL}challenger`);
+            return response;
+        });
     }
-    
 }

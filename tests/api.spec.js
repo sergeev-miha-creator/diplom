@@ -1,5 +1,6 @@
-import {expect} from "@playwright/test";
-import {test} from "../src/fixtures/fixture";
+import { expect } from "@playwright/test";
+import { test } from "../src/fixtures/fixture";
+import { TodoBuilder } from "../src/builders/todoBuilder";
 
 test.describe("API challenge", () => {
     let token;
@@ -26,11 +27,11 @@ test.describe("API challenge", () => {
 
     test("POST /todos (201)", {tag: '@API'}, async ({api}) => {
 
-        const todo = {
-            title: "text",
-            doneStatus: false,
-            description: "text text"
-        };
+        const todo = new TodoBuilder()
+            .addTitle()
+            .addDescription()
+            .addDoneStatus(false)
+            .generate();
 
 
         const response = await api.todos.postTodos(token, todo);
@@ -39,20 +40,19 @@ test.describe("API challenge", () => {
         expect(response.status()).toBe(201);
         expect(response.headers()).toEqual(expect.objectContaining({"x-challenger": token}));
         expect(body.doneStatus).toEqual(false);
-        expect(body.title).toBe("text");
-        expect(body.description).toBe("text text");
+        expect(body.title).toBe(todo.title);
+        expect(body.description).toBe(todo.description);
     });
 
 
     test("POST /todos (400) title too long", {tag: '@API'}, async ({api}) => {
 
-        const todo = {
-            title: "texttexttexttexttexttexttexttexttexttexttexttexttexttext",
-            doneStatus: false,
-            description: "text"
-        };
-
-
+        const todo = new TodoBuilder()
+            .withTitleExceedingMaxLength()
+            .addDescription()
+            .addDoneStatus(false)
+            .generate();
+            
         const response = await api.todos.postTodos(token, todo);
 
         const body = await response.json();
@@ -63,10 +63,9 @@ test.describe("API challenge", () => {
 
     test("PUT /todos/{id} ", {tag: '@API'}, async ({api}) => {
 
-        const todo = {
-            doneStatus: true,
-            description: "text",
-        };
+        const todo = new TodoBuilder()
+            .addDescription()
+            .addDoneStatus(false)
 
 
         const response = await api.todos.putTodos(token, todo, '321321');
@@ -79,12 +78,14 @@ test.describe("API challenge", () => {
 
     test("DELETE /todos/{id} (200)", {tag: '@API'}, async ({api}) => {
 
-        const newTodo = {
-        title: "To Delete",
-        doneStatus: false,
-        description: "Will be deleted"
-    };
-        const createResponse = await api.todos.postTodos(token, newTodo);
+        const todo = new TodoBuilder()
+            .addTitle()
+            .addDescription()
+            .addDoneStatus(false)
+            .generate();
+
+
+        const createResponse = await api.todos.postTodos(token, todo);
         const createdTodo = await createResponse.json();
         const todoId = createdTodo.id;
         const response = await api.todos.deleteTodos(token, todoId);
