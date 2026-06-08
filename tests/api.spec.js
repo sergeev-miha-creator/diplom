@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { test } from "../src/fixtures/fixture";
-import { TodoBuilder } from "../src/builders/todoBuilder";
+import { TodoBuilder } from "../src/builders";
 
 test.describe("API challenge", () => {
     let token;

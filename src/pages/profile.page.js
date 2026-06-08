@@ -1,5 +1,4 @@
 import { BasePage } from './base.page';
-import { expect } from '@playwright/test';
 
 export class ProfilePage extends BasePage {
     constructor(page) {
@@ -24,13 +23,5 @@ export class ProfilePage extends BasePage {
         await this.userProfile.click();
         await this.linkProfile.click();
         await this.favoriteTab.click();
-    }
-
-    async verifyMyTabVisible() {
-        await expect(this.myTab).toBeVisible();
-    }
-
-    async verifyFavoriteTabVisible() {
-        await expect(this.favoriteTab).toBeVisible();
     }
 }

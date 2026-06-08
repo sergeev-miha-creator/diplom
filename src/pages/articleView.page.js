@@ -1,5 +1,4 @@
 import { BasePage } from './base.page';
-import { expect } from '@playwright/test';
 
 export class ArticleViewPage extends BasePage {
     constructor(page) {
@@ -16,25 +15,6 @@ export class ArticleViewPage extends BasePage {
         this.articleComment = page.getByRole('main');
     }
 
-    async verifyArticleTitle(expectedTitle) {
-        await expect(this.articleTitle).toContainText(expectedTitle);
-    }
-
-    async verifyArticleBody(expectedBody) {
-        await expect(this.articleBody).toContainText(expectedBody);
-    }
-
-    async verifyArticleTags(expectedTags) {
-        // Если expectedTags - массив, проверяем каждый тег
-        if (Array.isArray(expectedTags)) {
-            for (const tag of expectedTags) {
-                await expect(this.articleTags).toContainText(tag);
-            }
-        } else {
-            await expect(this.articleTags).toContainText(expectedTags);
-        }
-    }
-
     async addComment(comment) {
         const { commentText } = comment;
         await this.writeComment.click();
@@ -42,7 +22,4 @@ export class ArticleViewPage extends BasePage {
         await this.postComment.click();
     }
 
-    async verifyComment(expectedComment) {
-        await expect(this.articleComment).toContainText(expectedComment.commentText);
-    }
 }

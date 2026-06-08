@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
 export class ArticleBuilder {
-    addTitle() {
-        this.title = faker.word.noun();
+    addTitle(title = null) {
+        this.title = title ?? faker.word.noun();
         return this;
     }
 
